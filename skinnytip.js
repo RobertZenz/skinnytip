@@ -68,25 +68,29 @@ SkinnyTip.init = function() {
 	var targets = document.querySelectorAll(".skinnytip");
 	var targetCount = targets.length;
 	for (var i = 0; i < targetCount; i++) {
-		targets[i].addEventListener('mouseover', function() {
-			var title, text, options;
-			if (this.hasAttribute('data-title')) {
-				title = this.getAttribute('data-title');
-			}
-			if (this.hasAttribute('data-text')) {
-				text = this.getAttribute('data-text');
-			}
-			if (this.hasAttribute('data-options')) {
-				options = this.getAttribute('data-options');
-			}
-			SkinnyTip.tooltip(text, title, options);
-		});
-		targets[i].addEventListener('mouseout', function() {
-			SkinnyTip.hideTip();
-		});
+		this.initOn(targets[i]);
 	}
 	targets = null;
 	this.captureMouse();
+};
+
+SkinnyTip.initOn = function(element) {
+	element.addEventListener('mouseover', function() {
+		var title, text, options;
+		if (this.hasAttribute('data-title')) {
+			title = this.getAttribute('data-title');
+		}
+		if (this.hasAttribute('data-text')) {
+			text = this.getAttribute('data-text');
+		}
+		if (this.hasAttribute('data-options')) {
+			options = this.getAttribute('data-options');
+		}
+		SkinnyTip.tooltip(text, title, options);
+	});
+	element.addEventListener('mouseout', function() {
+		SkinnyTip.hideTip();
+	});
 };
 
 SkinnyTip.tooltip = function(text, title, options) {
